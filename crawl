@@ -1,1 +1,21 @@
+Metasploit  auxiliary module:
+use auxiliary/crawler/msfcrawler
+msf auxiliary(msfcrawler) > set rhosts www.example.com
+msf auxiliary(msfcrawler) > exploit
 
+----------------------------------------------------------------------------------------
+Httrack
+<HTTrack is a free and open source Web crawler and offline browser>
+
+httrack http://tptl.in –O /root/Desktop/file
+-O define to output (where to save crawl data)
+----------------------------------------------------------------------------------------
+Black Widow
+This Web spider utility (GUI) detects and displays detailed information for a user-selected Web page, and it offers other Web page tools.
+--------------------------------------------------------------------------------------------------------------------------------------------
+Website Ripper Copier
+Website Ripper Copier (WRC) is an all-purpose (GUI), high-speed website downloader software to save website data
+-----------------------------------------------------------------------------------------------------------------
+Burp Suite Spider
+Burp Spider is a tool for automatically crawling web applications.
+While it is generally preferable to map applications manually, you can use Burp Spider to partially automate this process for very large applications, or when you are short of time.
