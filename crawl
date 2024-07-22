@@ -1,3 +1,6 @@
+https://www.hackingarticles.in/5-ways-crawl-website/
+
+
 Metasploit  auxiliary module:
 use auxiliary/crawler/msfcrawler
 msf auxiliary(msfcrawler) > set rhosts www.example.com
