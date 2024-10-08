@@ -1,0 +1,8 @@
+joomscan -ec -u http://10.10.13.76   (Enumarated components)
+
+git clone https://github.com/teranpeterson/Joomblah.git
+
+cd Joomblah/
+
+python joomblah.py http://10.10.13.76
+
