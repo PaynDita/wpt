@@ -1,0 +1,7 @@
+# Option 1
+# Redirecting to the host
+$ ffuf -u https://mydomain.com -w my_wordlist -H "Host: FUZZ.mydomain.com"
+
+# Option 2
+# But you'll have to wait for the timeout
+$ ffuf -u https://FUZZ.mydomain.com -w my_wordlist
