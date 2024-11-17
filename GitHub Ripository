@@ -8,9 +8,9 @@ https://github.com/SecWiki/windows-kernel-exploits/blob/master/CVE-2017-0213/CVE
 
 -------------------------------------------------------------------------------------------------------------
 
-https://github.com/dievus/printspoofer
+https://github.com/dievus/printspoofer - Prnt Spoofer
 PrintSpoofer.exe -i -c PowerShell.exe
 ------------------------------------------------------------------------------------------------------------
-https://github.com/bitsadmin/wesng/blob/master/wes.py
+https://github.com/bitsadmin/wesng/blob/master/wes.py   - windows exploit suggester
 ./wes.py -u
 ./wes.py systeminfo.txt
