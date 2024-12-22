@@ -1,4 +1,34 @@
-    Payload Execution:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Payload Execution:
         Once the COM object is loaded, it runs the attacker's payload with SYSTEM privileges.
         The payload might be a reverse shell, privilege escalation payload, or any code the attacker wants to execute.
 
