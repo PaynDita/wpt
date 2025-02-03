@@ -14,3 +14,9 @@ PrintSpoofer.exe -i -c PowerShell.exe
 https://github.com/bitsadmin/wesng/blob/master/wes.py   - windows exploit suggester
 ./wes.py -u
 ./wes.py systeminfo.txt
+
+----------------------------------------------------------------------------------------------------
+static nmap-binary
+
+https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/nmap
+--------------------------------------------------------------------------------------
