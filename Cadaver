@@ -1,0 +1,22 @@
+Cadaver is a command-line tool used to interact with WebDAV (Web Distributed Authoring and Versioning) servers.
+
+Think of it like FTP, but for WebDAV, which is a protocol for managing files over the web.
+
+
+
+Basic Usage
+cadaver https://your.webdav.server/
+
+
+Then you'll get an interactive prompt (like FTP), where you can:
+
+Command	Description
+ls	List files
+cd	Change directory
+get	Download a file
+put	Upload a file
+mget	Download multiple files
+mput	Upload multiple files
+mkdir	Make a directory
+rm	Remove a file
+bye	Exit
