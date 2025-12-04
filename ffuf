@@ -1,7 +1,4 @@
 # Option 1
 # Redirecting to the host
-$ ffuf -u https://mydomain.com -w my_wordlist -H "Host: FUZZ.mydomain.com"
+$ ffuf -u https://<ip> -w my_wordlist -H "Host: FUZZ.mydomain.com" -f <in filter use the first word of the event you want to filter and space and value of that event) to make it quick and identical>
 
-# Option 2
-# But you'll have to wait for the timeout
-$ ffuf -u https://FUZZ.mydomain.com -w my_wordlist
