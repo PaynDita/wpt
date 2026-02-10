@@ -1,4 +1,4 @@
-Right click the possbile post link - inspect 
+Right click the possbile "POST" link - inspect or right click the page and Inspect
 In "NETWORK" section - delete the existing one and refresh or click the same link again
 pause the Netwroking cliking on "PLAY"  botton
 find the "POST" section - analyse the header and mainly "REQUEST" and "RESPONSE"
