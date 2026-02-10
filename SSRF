@@ -1,3 +1,6 @@
+For "GET" request generally you can modify on url browser itself so you can try direclty on browser
+
+for "POST" request
 Right click the possbile "POST" link - inspect or right click the page and Inspect
 In "NETWORK" section - delete the existing one and refresh or click the same link again
 pause the Netwroking cliking on "PLAY"  botton
@@ -8,8 +11,8 @@ In the "REQUEST" change possbile url name that is mentioned but not diplaying an
 
 but in real world scenario you can try:
 
-        url=abc to url= file:///cat/etc
-            or to url=http://localhost or url=http://localhost/admin
+        url=abc to url= file:///cat/etc or  gopher://, and dict://
+            or to url=http://localhost or url=http://localhost/config or admin
             or to url= any other IPs, domain name or any other information you found there
 
 OR in advance real world scenario level:
@@ -22,8 +25,9 @@ url = http://169.254.169.254/metadata or http://169.254.169.254/metadata/v1 and 
 What is SSRF?
 Server-Side Request Forgery (SSRF) is a web security vulnerability where an attacker tricks a server into making requests to unintended locations. This can allow access to internal services, leak sensitive data, or even interact with restricted networks.
 More clearly: 
-There is Main file or Database server which is serverA and web server ServerB. Now as a pentester you can't access the ServerA directly as it has hard security but in Web Server there is a chance of low level of scurity and has some loose security level between Web Server
-ServerA to let web developer to access some extra data with less restriction.  
+There is Main file or Database server which is serverA and web server ServerB. Now as a pentester you can't access the ServerA directly as it has hard security but in Web Server there is a chance of low level of scurity or ssrf vulnerability and has some loose security 
+level between Web Server and ServerA to let web developer to access some extra data with less restriction. 
+
 So as a pentester you will attack Webserver from where you will try to attack ServerA 
 
 Types of SSRF
@@ -34,6 +38,7 @@ A successful SSRF attack can:
 
 Access restricted internal systems.
 Leak sensitive data like API keys and credentials.
+
 Interact with internal networks.
 Exploit cloud metadata services (e.g., AWS instance credentials).
 
@@ -56,12 +61,6 @@ Block internal IP ranges — Prevent requests to 127.0.0.1, 169.254.169.254, etc
 Disable unused protocols — Restrict file://, gopher://, and dict:// schemes.
 Use Web Application Firewalls (WAFs) — Detect and block malicious requests.
 Monitor logs and alerts — Detect unusual outbound requests.
-[Question 1.1] What does SSRF stand for?
-
-Answer: Server-Side Request Forgery
-
-[Question 1.2] As opposed to a regular SSRF, what is the other type?
-
 
 
 Within an AWS instance (like an EC2 virtual machine), the special link-local IP address 169.254.169.254 is used to access instance metadata and user data, but this is for internal communication within the AWS network only. 
