@@ -9,7 +9,7 @@ In the "REQUEST" change possbile url name that is mentioned but not diplaying an
 but in real world scenario you can try:
 
         url=abc to url= file:///cat/etc
-            or to url=http://localhost
+            or to url=http://localhost or url=http://localhost/admin
             or to url= any other IPs, domain name or any other information you found there
 
 OR in advance real world scenario level:
