@@ -17,4 +17,47 @@ find the API IP and use the metadata or v1
 eg.
 url = http://169.254.169.254/metadata or http://169.254.169.254/metadata/v1 and so on....
 
+
+-------------------------------------------------------------------------------------------------
+What is SSRF?
+Server-Side Request Forgery (SSRF) is a web security vulnerability where an attacker tricks a server into making requests to unintended locations. This can allow access to internal services, leak sensitive data, or even interact with restricted networks.
+
+Types of SSRF
+Regular SSRF — The attacker receives a direct response with data from the target.
+Blind SSRF — The request is made, but no response is shown to the attacker.
+Impact of SSRF
+A successful SSRF attack can:
+
+Access restricted internal systems.
+Leak sensitive data like API keys and credentials.
+Interact with internal networks.
+Exploit cloud metadata services (e.g., AWS instance credentials).
+
+--------------------------------------------------------------------------------------------------------
+Example SSRF Attack
+If a website allows fetching URLs, an attacker might trick it into accessing internal services:
+
+GET /fetch?url=http://localhost/admin
+This could expose internal admin pages.
+
+In cloud environments, attackers might access metadata services:
+
+GET /fetch?url=http://169.254.169.254/latest/meta-data/
+This can leak cloud instance credentials.
+
+------------------------------------------------------------------------------------------------------------
+How to Prevent SSRF
+Restrict allowed URLs — Only permit safe, predefined domains.
+Block internal IP ranges — Prevent requests to 127.0.0.1, 169.254.169.254, etc.
+Disable unused protocols — Restrict file://, gopher://, and dict:// schemes.
+Use Web Application Firewalls (WAFs) — Detect and block malicious requests.
+Monitor logs and alerts — Detect unusual outbound requests.
+[Question 1.1] What does SSRF stand for?
+
+Answer: Server-Side Request Forgery
+
+[Question 1.2] As opposed to a regular SSRF, what is the other type?
+
+
+
 Within an AWS instance (like an EC2 virtual machine), the special link-local IP address 169.254.169.254 is used to access instance metadata and user data, but this is for internal communication within the AWS network only. 
