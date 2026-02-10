@@ -1,33 +1,14 @@
+Right click the possbile post link - inspect 
+In "NETWORK" section - delete the existing one and refresh or click the same link again
+pause the Netwroking cliking on "PLAY"  botton
+find the "POST" section - analyse the header and mainly "REQUEST" and "RESPONSE"
+Right click the same "POST" link in "Network" and "EDIT and SEND"
+In the "REQUEST" change possbile url name that is mentioned but not diplaying and "RESUME" the Networking and hit "SEND" and analyze the "RESPONSE" you will get the information
+          in general : url=abc that you can change to url=def
 
+but in real world scenario you can try:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-The Juicy Potato exploit works by abusing Windows' Event Log service and COM object handling to escalate privileges from low-level users to SYSTEM level. It is highly effective on Windows 10 and Windows Server 2016/2019 and works by tricking Windows into executing malicious code with elevated privileges, leveraging the SeDebugPrivilege and SeImpersonatePrivilege. While it is an effective exploit, mitigation involves patching, privilege restrictions, and robust monitoring.
+        url=abc to url= file:///cat/etc
+            or to url=http://localhost
+            or to url= any other IPs, domain name or any other information you found there
+        
