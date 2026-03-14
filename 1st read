@@ -4,5 +4,6 @@ sqlmap - sql
 
 cadaver - webdav(wampp:xampp)
 
+joomscan - joomla (joomscan -ec -u http://10.10.13.76   (Enumarated components)
 
 
